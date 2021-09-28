@@ -6,6 +6,7 @@ runs:
       - name: Version
         id: vars
         run: echo ::set-output name=version::$(cat VERSION)
+        shell: bash
 
       - name: Set up Java
         uses: actions/setup-java@v2
@@ -30,9 +31,11 @@ runs:
       - name: Build
         run: |
           ./gradlew -Prelease=true build -S
+        shell: bash  
 
       - name: Jacoco
         run: ./gradlew -Prelease=true aggregateJacocoReport -S
+        shell: bash
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
@@ -48,6 +51,7 @@ runs:
           -PsonatypeUsername=${{ secrets.SONATYPE_USERNAME }} \
           -PsonatypePassword=${{ secrets.SONATYPE_PASSWORD }} \
           build publishToSonatype closeAndReleaseSonatypeStagingRepository -S
+        shell: bash
 
       - name: Assemble
         uses: jreleaser/release-action@v1
