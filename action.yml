@@ -99,7 +99,6 @@ runs:
           JRELEASER_SLACK_WEBHOOK: ${{ inputs.slack-webhook }}
 
       - name: JReleaser output
-        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: artifact
