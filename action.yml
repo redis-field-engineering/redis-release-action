@@ -34,16 +34,9 @@ runs:
       shell: bash
 
     - name: Build
-      uses: redis-field-engineering/redis-build-action@v1
+      uses: redis-field-engineering/redis-build-action@v2
       with:
         release: true
-
-    - name: Jacoco
-      run: ./gradlew -Prelease=true aggregateJacocoReport -S
-      shell: bash
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
 
     - name: Deploy
       env:
@@ -55,7 +48,7 @@ runs:
         ./gradlew -Prelease=true -Pfull-release=true \
         -PsonatypeUsername=${{ inputs.sonatype-username }} \
         -PsonatypePassword=${{ inputs.sonatype-password }} \
-        build publishToSonatype closeAndReleaseSonatypeStagingRepository -S
+        publishToSonatype closeAndReleaseSonatypeStagingRepository -S
       shell: bash
 
     - name: Assemble
