@@ -34,7 +34,7 @@ runs:
       shell: bash
 
     - name: Build
-      uses: redis-field-engineering/redis-build-action@v3
+      uses: redis-field-engineering/redis-build-action@v1
       with:
         release: true
 
