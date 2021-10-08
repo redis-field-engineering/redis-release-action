@@ -25,6 +25,10 @@ inputs:
   slack-webhook:
     description: "Slack webhook URL"
     required: true
+  codecov-token:
+    description: "Upload token for codecov.io"
+    required: false
+
 runs:
   using: "composite"
   steps:
@@ -37,6 +41,7 @@ runs:
       uses: redis-field-engineering/redis-build-action@v1
       with:
         release: true
+        codecov-token: ${{ inputs.codecov-token }}
 
     - name: Deploy
       env:
