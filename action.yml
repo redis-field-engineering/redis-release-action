@@ -28,6 +28,9 @@ inputs:
   codecov-token:
     description: "Upload token for codecov.io"
     required: false
+  docker-password:
+    description: "Docker registry password"
+    required: false
 
 runs:
   using: "composite"
@@ -75,6 +78,7 @@ runs:
         JRELEASER_GPG_PUBLIC_KEY: ${{ inputs.gpg-public-key }}
         JRELEASER_GPG_SECRET_KEY: ${{ inputs.gpg-secret-key }}
         JRELEASER_SLACK_WEBHOOK: ${{ inputs.slack-webhook }}
+        JRELEASER_DOCKER_DEFAULT_PASSWORD: ${{ inputs.docker-password }}
 
     - name: JReleaser output
       uses: actions/upload-artifact@v2
