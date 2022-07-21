@@ -41,7 +41,7 @@ runs:
       shell: bash
 
     - name: Build
-      uses: redis-field-engineering/redis-build-action@v1
+      uses: redis-field-engineering/redis-build-action@v2
       with:
         release: true
         codecov-token: ${{ inputs.codecov-token }}
@@ -59,16 +59,8 @@ runs:
         publishToSonatype closeAndReleaseSonatypeStagingRepository -S
       shell: bash
 
-    - name: Assemble
-      uses: jreleaser/release-action@v1
-      with:
-        arguments: assemble
-      env:
-        JRELEASER_PROJECT_VERSION: ${{ steps.vars.outputs.version }}
-        JRELEASER_GITHUB_TOKEN: ${{ inputs.github-token }}
-
     - name: Release
-      uses: jreleaser/release-action@v1
+      uses: jreleaser/release-action@v2
       with:
         arguments: full-release
       env:
@@ -79,12 +71,3 @@ runs:
         JRELEASER_GPG_SECRET_KEY: ${{ inputs.gpg-secret-key }}
         JRELEASER_SLACK_WEBHOOK: ${{ inputs.slack-webhook }}
         JRELEASER_DOCKER_DEFAULT_PASSWORD: ${{ inputs.docker-password }}
-
-    - name: JReleaser output
-      uses: actions/upload-artifact@v2
-      with:
-        name: artifact
-        path: |
-          out/jreleaser/trace.log
-          out/jreleaser/output.properties
-          out/jreleaser/release/CHANGELOG.md
